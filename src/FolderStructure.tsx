@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const Folder = ({ node }: any) => {
-  const [openFolder, setOpenFolder] = useState(false);
+const Folder = ({ node, isRoot }: any) => {
+  const [openFolder, setOpenFolder] = useState(isRoot);
+  // useEffect(() => {
+  //   if(node.name === 'root'){
+  //     setOpenFolder(true)
+  //   }
+  // },[])
   return (
     <>
       <label>
-        <input type="checkbox" onChange={() => setOpenFolder(!openFolder)} />{' '}
+        <input type="checkbox" onChange={() => setOpenFolder(!openFolder)} checked={openFolder} />{' '}
         {node.name}
       </label>
       {openFolder && (
@@ -24,7 +29,7 @@ const Folder = ({ node }: any) => {
 export const Structure = ({ folderSchema }: any) => {
   return (
     <>
-      <Folder node={{ name: 'root', children: folderSchema }} />
+      <Folder node={{ name: 'root', children: folderSchema}} isRoot={true}/>
     </>
   );
 };
